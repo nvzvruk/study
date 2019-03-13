@@ -1,0 +1,13 @@
+.todo-item .todo-item__label {
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.todo-item.done .todo-item__label {
+    text-decoration: line-through;
+}
+
+.todo-item.important .todo-item__label {
+    font-weight: bold;
+    color: steelblue;
+}

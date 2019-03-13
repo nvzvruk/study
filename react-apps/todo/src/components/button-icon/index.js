@@ -1,9 +1,12 @@
 import React from 'react';
 import './index.css';
 
-const ButtonIcon = ({type, icon}) => {
+const ButtonIcon = ({kind, icon, type, handleClick, active = false}) => {
+    const classNames = `button-icon btn btn${active ? '-' : '-outline-'}${kind}`;
     return (
-        <button type="button" className={`button-icon btn btn-outline-${type}`}>
+        <button onClick={handleClick}
+            type={type}
+            className={classNames}>
             <i className={`fa fa-${icon}`}/>
         </button>
     );
