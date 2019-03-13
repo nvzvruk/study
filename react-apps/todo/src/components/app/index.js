@@ -31,7 +31,6 @@ const App = () => {
                         <SearchPanel buttonsData={buttonsData}/>
                     </div>
                 </div>
-
                 <div className="row ml-0 mr-0 pt-3">
                     <div className="col-12"><TodoList list={todos}/></div>
                 </div>
