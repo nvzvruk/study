@@ -8,23 +8,36 @@ export default class AddTodoPanel extends Component {
     constructor() {
         super();
 
+        this.state = {
+            newTodo: ''
+        };
+
+        this.handleInputChange = (e) => {
+            this.setState({
+                newTodo: e.target.value
+            })
+        };
+
         this.handleFormSubmit = (e) => {
             e.preventDefault();
-            console.log(e);
+            this.props.addTodo(this.state.newTodo);
+            this.setState({
+                newTodo: ''
+            });
         }
     }
 
     render() {
 
-        // const { addTodo } = this.props;
-
         return(
             <div className="add-todo-form container">
                 <div className="row">
-                    <form onSubmit={(e) => this.handleFormSubmit(e)}>
+                    <form onSubmit={this.handleFormSubmit}>
                         <div className="form-group d-flex">
                             <div className="col-11 pl-0 pr-0">
-                                <Input placeholder="Type here to search"/>
+                                <Input onChange={this.handleInputChange}
+                                       placeholder="Type here what you want"
+                                       value={this.state.newTodo}/>
                             </div>
                             <div className="d-flex justify-content-end col-1 pl-0 pr-0">
                                 <ButtonIcon kind="primary"
