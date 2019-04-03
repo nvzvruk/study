@@ -23,9 +23,24 @@ export default class App extends Component {
                 {id: '3', label: 'put', important: true, done: false},
                 {id: '4', label: 'delete', important: true, done: false}
             ],
+            searchTerm : ''
         };
 
-        this.toggleProperty = (arr, id, propName) => {
+        this.searchTodoByTerm = ( term ) => {
+            return term ?
+                this.state.todoData.filter(({ label }) => label.toLowerCase().indexOf(term.toLowerCase()) !== -1) :
+                this.state.todoData;
+        };
+
+        this.handleSearch = ({ target : { value } }) => {
+            this.setState(() => {
+                return {
+                    searchTerm: value
+                }
+            })
+        };
+
+        this.toggleProperty = ( arr, id, propName ) => {
             const idx = arr.findIndex((el) => el.id === id);
             const oldItem = arr[idx];
             const newItem = {...oldItem, [propName]: !oldItem[propName]};
@@ -76,9 +91,11 @@ export default class App extends Component {
     }
 
     render() {
-        const { todoData } = this.state;
+        const { todoData, searchTerm } = this.state;
         const doneCount = todoData.filter(item => item.done === true).length;
         const todoCount = todoData.length - doneCount;
+
+        const displayedTodoItems = this.searchTodoByTerm(searchTerm);
         return(
             <div className="app">
                 <div className="container pl-0 pr-0">
@@ -89,12 +106,12 @@ export default class App extends Component {
                     </div>
                     <div className="row ml-0 mr-0">
                         <div className="col-12">
-                            <SearchPanel buttonsData={buttonsData} />
+                            <SearchPanel buttonsData={buttonsData} onSearch={this.handleSearch} value={searchTerm}/>
                         </div>
                     </div>
                     <div className="row ml-0 mr-0 pt-3">
                         <div className="col-12">
-                            <TodoList data={todoData}
+                            <TodoList data={displayedTodoItems}
                                       deleteTodo={this.deleteItem}
                                       changeImportance={this.changeItemImportance}
                                       changeCompleteness={this.changeItemCompleteness}/>
