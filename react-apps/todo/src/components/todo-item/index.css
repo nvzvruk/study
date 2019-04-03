@@ -1,6 +1,5 @@
 .todo-item .todo-item__label {
     font-size: 18px;
-    text-transform: uppercase;
 }
 
 .todo-item.done .todo-item__label {
