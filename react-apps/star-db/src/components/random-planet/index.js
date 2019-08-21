@@ -1,11 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import Spinner from '../../components/spinner';
 import ApiService from "../../utils/api-service";
 import { randomInteger } from '../../helpers';
-import ErrorPopup from "../error-popup";
 import './index.css';
-
-const planetCount = 10; // must be all planets count;
 
 const PlanetView = ({planet: { name, population, rotation, diameter, imageUrl }}) => {
     return(
@@ -25,11 +22,15 @@ const PlanetView = ({planet: { name, population, rotation, diameter, imageUrl }}
     );
 };
 
-class RandomPlanet extends Component {
+class RandomPlanet extends React.PureComponent {
+
+    apiService = new ApiService();
+
     constructor(props) {
         super(props);
 
         this.state = {
+            planetsCount: 0,
             planet : {
                 name: '',
                 population: '',
@@ -37,37 +38,48 @@ class RandomPlanet extends Component {
                 diameter: '',
                 imageUrl: ''
             },
+            loading: true,
             error: {
-                displayError: false,
+                display: false,
                 title: '',
                 message: ''
-            },
-            loading: false,
+            }
         };
 
-        this.showSpinner = () => {
-            this.setState(() => {
-                return {
-                    loading: true
+        this.showSpinner = () => this.setState((prevState) => (
+            {
+                ...prevState,
+                loading: true
+            }
+        ));
+
+        this.hideError = () => {
+            this.setState(prevState => ({
+                ...prevState,
+                error: {
+                    display: false,
+                    title: '',
+                    message: ''
                 }
-            });
-        };
+            }));
+        }
 
         this.onPlanetLoadFail = (error) => {
-            this.setState(() => {
-                return {
-                    error : {
-                        title: 'sasi',
-                        message: 'pisos',
-                    },
-                    loading: false
+            this.setState(prevState => ({
+                ...prevState,
+                loading: false,
+                error: {
+                    display: true,
+                    title: 'oops',
+                    message: 'somethimng went wrong'
                 }
-            });
+            }));
         };
 
         this.onPlanetLoadSuccess = (planet) => {
-            this.setState(() => {
+            this.setState((prevState) => {
                 return {
+                    ...prevState,
                     planet,
                     loading: false
                 }
@@ -76,29 +88,40 @@ class RandomPlanet extends Component {
 
         this.updatePlanet = async (id) => {
             this.showSpinner();
-            ApiService.get('planets', id)
-                .then((result) => {
-                    this.onPlanetLoaded(result);
-                })
-                .catch((error) => {
-                    this.onPlanetLoadFail(error);
-                });
+            this.apiService
+                .get('planets', id)
+                .then(this.onPlanetLoadSuccess)
+                .catch(this.onPlanetLoadFail);
         };
+
+        this.getPlanetsCount = async () => {
+            try {
+                const planetsObj = await this.apiService.getAll('planets', false);
+                this.setState((prevState) => {
+                return {
+                    ...prevState,
+                    planetsCount: planetsObj.count
+                }});
+            }
+            catch (e) {
+                //handle error
+            }
+        }
     }
 
     async componentDidMount() {
-        await this.updatePlanet(randomInteger(1232131, planetCount));
+        await this.getPlanetsCount();
+        await this.updatePlanet(randomInteger(1, this.state.planetsCount));
     }
 
     render() {
         const { planet, loading, error } = this.state;
+        const dataExist = !(loading || error.display);
         const spinner = loading && <Spinner/>;
-        const errorMessage = error && <ErrorPopup title={error.title} message={error.message}/>;
-        const content = !loading &&  <PlanetView planet={ planet }/>;
+        const content = dataExist && <PlanetView planet={ planet }/>;
         return(
             <div className="planet jumbotron">
                 { spinner }
-                { errorMessage }
                 { content }
             </div>
         );

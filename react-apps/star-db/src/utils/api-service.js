@@ -12,24 +12,20 @@ class ApiService {
         return await response.json();
     }
 
-    async getAll(entity) {
+    async getAll(entity, onlyResults = true) {
         const data = await this.getResource(`/${entity}`);
-        return await data.results.map(this.transformData);
+        return onlyResults ? data.results : data;
     }
 
     async get(entity, id) {
-        try {
-            const data = await this.getResource(`/${entity}/${id}`);
-            switch (entity) {
-                case 'planets' : return await this.transformData(data, id);
-                default : return await this.transformData(data, id); //
-            }
-        } catch (e) {
-            // console.log(e)
+        let data = await this.getResource(`/${entity}/${id}`);
+        switch (entity) {
+            case 'planets' : return await this.transformData(data, id);
+            default : return await this.transformData(data, id); //
         }
     }
 
-    async transformData ({ name, population, rotation_period, diameter }, id) {
+    transformData ({ name, population, rotation_period, diameter }, id) {
         const imageUrl = getImageUrl('planets', id);
         return {
             name,
@@ -41,5 +37,4 @@ class ApiService {
     }
 }
 
-const instance = new ApiService();
-export default instance;
+export default ApiService;

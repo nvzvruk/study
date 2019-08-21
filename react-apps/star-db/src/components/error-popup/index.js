@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react';
 import './index.css';
 class ErrorPopup extends PureComponent {
     render() {
-        const { title, message } = this.props;
+        const { title, message, onClose } = this.props;
         return (
             <div className="error-popup alert alert-dimissible alert-danger">
-                <button type="button" className="error-popup__close close" onClick={this.close}>
+                <button type="button" className="error-popup__close close" onClick={onClose}>
                     &times;
                 </button>
                 <span className="error-popup__title">{ title }</span>

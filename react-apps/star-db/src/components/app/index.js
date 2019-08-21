@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import ErrorPopup from '../error-popup';
 import PlanetPage from '../../pages/planet-page';
 import ApiService from '../../utils/api-service';
 
 class App extends Component {
+
+    apiServie = new ApiService();
 
     constructor(props) {
         super(props);
@@ -23,7 +24,7 @@ class App extends Component {
         };
 
         this.setActivePerson = async (id) => {
-            const person = await ApiService.get('people', id);
+            const person = await this.apiServie.get('people', id);
             this.setState(() => {
                 return {
                     activePerson: person
@@ -32,7 +33,7 @@ class App extends Component {
         };
 
         this.getAllPersons = () => {
-            ApiService.getAll('people')
+            this.apiServie.getAll('people')
                 .then(( receivedPersons ) => {
                     this.setState(() => {
                         return {
