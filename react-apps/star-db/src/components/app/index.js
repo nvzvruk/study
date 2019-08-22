@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
-import PlanetPage from '../../pages/planet-page';
+import RandomPlanet from '../random-planet';
+import PeoplePage from '../../pages/people-page';
 
 class App extends Component {
 
+    state = {
+        hasError: false,
+    };
+
+    componentDidCatch() {
+        this.setState({ hasError: true })
+    }
+
     render() {
+        if(this.state.hasError) {
+            return <div><h1 style={{ color: 'red', textAlign: 'center' }}>Error Occured</h1></div>
+        }
+
         return (
             <div className="app">
                 <header className="app-header">
@@ -20,8 +33,17 @@ class App extends Component {
                         </nav>
                     </div>
                 </header>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <RandomPlanet/>
+                        </div>
+                    </div>
+                </div>
                 <main>
-                    <PlanetPage/>
+                    <PeoplePage/>
+                    {/*<PlanePage/>*/}
+                    {/*<StarshipPage/>*/}
                 </main>
             </div>
         );

@@ -14,8 +14,9 @@ export default class PersonDetails extends Component {
     };
 
     updateSelectedPerson = (id) => {
-        this.apiService.get('people', id)
-            .then((person) => this.setState({ selectedPerson: person }))
+        this.setState({ loading: true });
+        this.apiService.getPerson(id)
+            .then((person) => this.setState({ selectedPerson: person, loading: false }));
     };
 
     componentDidUpdate(prevProps) {

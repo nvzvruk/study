@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-const PersonDetailsView = ({ id, name, gender, birthYear, eyeColor }) => (
+const PersonDetailsView = ({ person: { id, name, gender, birthYear, eyeColor } }) => (
     <div className="person-details card">
         <img className="person-image"
              src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}

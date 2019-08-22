@@ -12,12 +12,12 @@ class ApiService {
         return await response.json();
     }
 
-    async getAll(entity, onlyResults = true) {
+    async getAll(entity, onlyArray = true) {
         const data = await this.getResource(`/${entity}`);
-        if(onlyResults) {
+        if(onlyArray) {
             switch (entity) {
                 case 'people': return data.results.map(this.__transformPeople);
-                case 'planets': return data.return.map(this.__transformPlanet);
+                case 'planets': return data.results.map(this.__transformPlanet);
                 default : return data.results;
             }
         }
@@ -33,6 +33,14 @@ class ApiService {
         }
     }
 
+    getAllPeople = this.getAll.bind(this, 'people');
+    getAllPlanets = this.getAll.bind(this, 'planets');
+    getAllStarhips = this.getAll.bind(this, 'starhips');
+
+    getPerson = this.get.bind(this, 'people');
+    getPlanet = this.get.bind(this, 'planets');
+    getStarhip = this.get.bind(this, 'starhips');
+
 
     // helper methods
 
@@ -45,6 +53,7 @@ class ApiService {
     // transform data methods
 
     __transformPlanet = ({ name, population, rotation_period, diameter, url }) => {
+        console.log(name)
         const id = this.__extractIdFromUrl(url);
         const imageUrl = getImageUrl('planets', id);
         return {

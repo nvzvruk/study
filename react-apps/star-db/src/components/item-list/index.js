@@ -1,23 +1,24 @@
 import React from 'react';
-import ApiService from '../../utils/api-service';
 import Spinner from '../spinner';
 
 class ItemList extends React.PureComponent {
-
-    apiService = new ApiService();
-
     state = {
         list: []
     };
 
-    renderListItems = (items) =>
-        items.map(item => <li key={item.name}
-                              onClick={() => this.props.onClick(item.id)}
-                              className="list-group-item">{item.name}</li>
-        );
+    renderListItems = items =>
+        items.map(item => {
+            const { id } = item;
+            const label = this.props.renderItem(item);
+            return(
+                <li key={item.id}
+                    onClick={() => this.props.onClick(id)}
+                    className="list-group-item">{label}</li>
+            );
+        });
 
     componentDidMount() {
-        this.apiService.getAll('people')
+        this.props.getData()
             .then(items => this.setState({ list: items }))
     };
 
@@ -29,6 +30,7 @@ class ItemList extends React.PureComponent {
         }
 
         const items = this.renderListItems(list);
+
         return(
             <ul className="item-list list-group">
                 {items}
