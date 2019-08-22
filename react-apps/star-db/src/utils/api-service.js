@@ -14,25 +14,57 @@ class ApiService {
 
     async getAll(entity, onlyResults = true) {
         const data = await this.getResource(`/${entity}`);
-        return onlyResults ? data.results : data;
+        if(onlyResults) {
+            switch (entity) {
+                case 'people': return data.results.map(this.__transformPeople);
+                case 'planets': return data.return.map(this.__transformPlanet);
+                default : return data.results;
+            }
+        }
+        return data;
     }
 
     async get(entity, id) {
-        let data = await this.getResource(`/${entity}/${id}`);
+        const data = await this.getResource(`/${entity}/${id}`);
         switch (entity) {
-            case 'planets' : return await this.transformData(data, id);
-            default : return await this.transformData(data, id); //
+            case 'planets' : return await this.__transformPlanet(data);
+            case 'people' : return await this.__transformPeople(data);
+            default : return data; //
         }
     }
 
-    transformData ({ name, population, rotation_period, diameter }, id) {
+
+    // helper methods
+
+    __extractIdFromUrl(url) {
+        const idRegExp = /\/([0-9]*)\/$/;
+        return url.match(idRegExp)[1];
+    };
+
+
+    // transform data methods
+
+    __transformPlanet = ({ name, population, rotation_period, diameter, url }) => {
+        const id = this.__extractIdFromUrl(url);
         const imageUrl = getImageUrl('planets', id);
         return {
+            id,
             name,
             population,
             rotation: rotation_period,
             diameter,
-            imageUrl
+            imageUrl,
+            url
+        }
+    };
+
+    __transformPeople = ({ name, gender, birth_year, eye_color, url }) => {
+        return {
+            id: this.__extractIdFromUrl(url),
+            name,
+            gender,
+            birthYear: birth_year,
+            eyeColor: eye_color,
         }
     }
 }

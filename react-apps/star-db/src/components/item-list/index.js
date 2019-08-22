@@ -1,15 +1,6 @@
 import React from 'react';
 import ApiService from '../../utils/api-service';
-
-const ItemListView = ({ items }) => {
-    return(
-        <ul className="item-list list-group">
-            {
-                items.map(item => <li key={item.name} className="list-group-item">{item.name}</li>)
-            }
-        </ul>
-    );
-}
+import Spinner from '../spinner';
 
 class ItemList extends React.PureComponent {
 
@@ -19,19 +10,30 @@ class ItemList extends React.PureComponent {
         list: []
     };
 
+    renderListItems = (items) =>
+        items.map(item => <li key={item.name}
+                              onClick={() => this.props.onClick(item.id)}
+                              className="list-group-item">{item.name}</li>
+        );
+
     componentDidMount() {
         this.apiService.getAll('people')
-            .then(items => this.setState({ list: items}))
-        }
+            .then(items => this.setState({ list: items }))
+    };
 
     render() {
         const { list } = this.state;
+
         if(!list.length) {
-            return null;
+            return <Spinner/>;
         }
+
+        const items = this.renderListItems(list);
         return(
-            <ItemListView items={list}/>
-        )
+            <ul className="item-list list-group">
+                {items}
+            </ul>
+        );
     }
 }
 
