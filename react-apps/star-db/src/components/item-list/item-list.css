@@ -1,0 +1,9 @@
+
+.list-group-item {
+    transition: .3s;
+}
+
+.list-group-item:hover {
+    opacity: .5;
+    cursor: pointer;
+}

@@ -3,7 +3,3 @@ export const randomInteger = (min, max) => {
     rand = Math.round(rand);
     return rand;
 };
-
-export const getImageUrl = (entity, id) => {
-    return `https://starwars-visualguide.com/assets/img/${entity}/${id}.jpg`;
-};

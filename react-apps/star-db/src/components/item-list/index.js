@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../spinner';
+import './item-list.css';
 
 class ItemList extends React.PureComponent {
     state = {
@@ -10,6 +11,7 @@ class ItemList extends React.PureComponent {
         items.map(item => {
             const { id } = item;
             const label = this.props.renderItem(item);
+            console.log(item)
             return(
                 <li key={item.id}
                     onClick={() => this.props.onClick(id)}

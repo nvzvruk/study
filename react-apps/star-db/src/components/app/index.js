@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RandomPlanet from '../random-planet';
 import PeoplePage from '../../pages/people-page';
+import StarshipsPage from '../../pages/starships-page';
 
 class App extends Component {
 
@@ -42,8 +43,8 @@ class App extends Component {
                 </div>
                 <main>
                     <PeoplePage/>
+                    <StarshipsPage/>
                     {/*<PlanePage/>*/}
-                    {/*<StarshipPage/>*/}
                 </main>
             </div>
         );

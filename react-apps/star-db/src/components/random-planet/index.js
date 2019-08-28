@@ -10,7 +10,8 @@ const PlanetView = ({planet: { name, population, rotation, diameter, imageUrl }}
             <div className="planet__image-wrapper">
                 <img src={imageUrl}
                      alt={`planet-${name}`}
-                     className="planet__image"/>
+                     className="planet__image"
+                />
             </div>
             <div className="planet__info">
                 <span className="planet__name">{name}</span>

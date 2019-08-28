@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import ItemList from "../../components/item-list";
-import PersonDetails from '../../components/person-details';
 import ApiService from "../../utils/api-service";
-
+import ItemList from "../../components/item-list";
+import ItemDetails, { Record } from '../../components/item-details';
 class PeoplePage extends Component {
 
     apiService = new ApiService();
@@ -34,7 +33,14 @@ class PeoplePage extends Component {
                                   onClick={this.onPersonSelected}/>
                     </div>
                     <div className="col-6">
-                        <PersonDetails personId={this.state.selectedPersonId}/>
+                        <ItemDetails itemId={this.state.selectedPersonId}
+                            getData={this.apiService.getPerson}
+                            imageSrc={this.apiService.getImageUrl('characters', this.state.selectedPersonId)}
+                        >
+                            <Record field="birthYear" label="Birth Year"/>
+                            <Record field="gender" label="Gender"/>
+                            <Record field="eyeColor" label="Eye color"/>
+                        </ItemDetails>
                     </div>
                 </div>
             </div>
