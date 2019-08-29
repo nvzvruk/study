@@ -1,5 +1,3 @@
-import ItemDetails from "../components/item-details";
-
 const api_url = 'https://swapi.co/api';
 const imageUrl = 'https://starwars-visualguide.com/assets/img/';
 
@@ -56,7 +54,6 @@ class ApiService {
     // transform data methods
 
     __transformPlanet = ({ name, population, rotation_period, diameter, url }) => {
-        console.log(name)
         const id = this.__extractIdFromUrl(url);
         const imageUrl = this.getImageUrl('planets', id);
         return {

@@ -43,7 +43,7 @@ class App extends Component {
                 </div>
                 <main>
                     <PeoplePage/>
-                    <StarshipsPage/>
+                    {/* <StarshipsPage/> */}
                     {/*<PlanePage/>*/}
                 </main>
             </div>

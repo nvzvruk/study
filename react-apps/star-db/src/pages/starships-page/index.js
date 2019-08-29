@@ -28,9 +28,9 @@ class StarshipsPage extends Component {
             <div className="planet-page container">
                 <div className="row">
                     <div className="col-6">
-                        <ItemList getData={this.apiService.getAllStarships}
+                        {/* <ItemList getData={this.apiService.getAllStarships}
                                   renderItem={({ name }) => `${name })`}
-                                  onClick={this.onStarshipSelected}/>
+                                  onClick={this.onStarshipSelected}/> */}
                     </div>
                     <div className="col-6">
                         <ItemDetails itemId={this.state.selectedStarshipId}

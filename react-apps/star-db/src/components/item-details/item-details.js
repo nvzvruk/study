@@ -4,7 +4,6 @@ import Spinner from '../spinner';
 import './item-details.css';
 
 export const Record = ({ item, field, label }) => {
-    console.log(item)
     return(
         <li className="list-group-item">
             <span className="term">{label}:</span>
@@ -28,7 +27,6 @@ export default class ItemDetails extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        console.log('update')
         if(prevProps.itemId !== this.props.itemId) {
             this.updateItem(this.props.itemId);
         }

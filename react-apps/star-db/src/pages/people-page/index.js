@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ApiService from "../../utils/api-service";
-import ItemList from "../../components/item-list";
+import ItemList from "../../components/item-list/item-list";
 import ItemDetails, { Record } from '../../components/item-details';
 class PeoplePage extends Component {
 
