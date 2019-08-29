@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ApiService from "../../utils/api-service";
-import ItemList from "../../components/item-list/item-list";
+import { PersonList } from "../../components/sw-components";
 import ItemDetails, { Record } from '../../components/item-details';
 class PeoplePage extends Component {
 
@@ -28,8 +28,7 @@ class PeoplePage extends Component {
             <div className="planet-page container">
                 <div className="row">
                     <div className="col-6">
-                        <ItemList getData={this.apiService.getAllPeople}
-                                  renderItem={({ name, gender, birthYear }) => `${name } (${gender}, ${birthYear})`}
+                        <PersonList renderItem={({ name, gender, birthYear }) => `${name } (${gender}, ${birthYear})`}
                                   onClick={this.onPersonSelected}/>
                     </div>
                     <div className="col-6">

@@ -5,7 +5,9 @@ const ItemList = (props) => {
     const items = props.data.map(item => {
         const { id } = item;
         const label = props.renderItem(item);
-        return(<li key={item.id} onClick={() => props.onClick(id)} className="list-group-item">{label}</li>)
+        return(
+            <li key={item.id} onClick={() => props.onClick(id)} className="list-group-item">{label}</li>
+        );
     });
 
     return(
