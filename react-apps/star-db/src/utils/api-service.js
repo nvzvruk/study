@@ -81,7 +81,7 @@ class ApiService {
         return {
             id: this.__extractIdFromUrl(item.url),
             name: item.name,
-            cost: item.cost_in_credits
+            model: item.model,
         };
     };
 

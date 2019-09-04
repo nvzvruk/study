@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ApiService from "../../utils/api-service";
-import ItemList from "../../components/item-list";
+import { StarshipsList } from "../../components/sw-components";
 import ItemDetails, { Record } from '../../components/item-details';
 class StarshipsPage extends Component {
 
@@ -28,9 +28,7 @@ class StarshipsPage extends Component {
             <div className="planet-page container">
                 <div className="row">
                     <div className="col-6">
-                        {/* <ItemList getData={this.apiService.getAllStarships}
-                                  renderItem={({ name }) => `${name })`}
-                                  onClick={this.onStarshipSelected}/> */}
+                        <StarshipsList onClick={this.onStarshipSelected}/>
                     </div>
                     <div className="col-6">
                         <ItemDetails itemId={this.state.selectedStarshipId}

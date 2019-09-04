@@ -28,8 +28,7 @@ class PeoplePage extends Component {
             <div className="planet-page container">
                 <div className="row">
                     <div className="col-6">
-                        <PersonList renderItem={({ name, gender, birthYear }) => `${name } (${gender}, ${birthYear})`}
-                                  onClick={this.onPersonSelected}/>
+                        <PersonList onClick={this.onPersonSelected}/>
                     </div>
                     <div className="col-6">
                         <ItemDetails itemId={this.state.selectedPersonId}
