@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemList from '../item-list';
-import withData from '../hoc/withData';
+import { withData } from '../hoc/index';
 import ApiService from '../../utils/api-service';
 
 const apiService = new ApiService();

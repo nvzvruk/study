@@ -1,46 +1,24 @@
 import React, { Component } from 'react';
-import ApiService from "../../utils/api-service";
-import { StarshipsList } from "../../components/sw-components";
-import ItemDetails, { Record } from '../../components/item-details';
+import Row from '../../components/row';
+import ErrorBoundary from '../../components/error-boundary';
+import { StarshipsList, StarshipDetails } from "../../components/sw-components";
 class StarshipsPage extends Component {
-
-    apiService = new ApiService();
 
     state ={
         selectedStarshipId: null,
-        hasError: false
     };
 
     onStarshipSelected = (id) => {
         this.setState({ selectedStarshipId: id })
     };
 
-    componentDidCatch() {
-        this.setState({ hasError: true })
-    }
-
     render() {
-        if(this.state.hasError) {
-            return <div><h1 style={{ color: 'red', textAlign: 'center' }}>Error Occured</h1></div>
-        }
+        const starshipList = <StarshipsList onClick={this.onStarshipSelected}/>;
+        const starshipDetails = <ErrorBoundary><StarshipDetails starshipId={this.state.selectedStarshipId}/></ErrorBoundary>;
 
         return(
             <div className="planet-page container">
-                <div className="row">
-                    <div className="col-6">
-                        <StarshipsList onClick={this.onStarshipSelected}/>
-                    </div>
-                    <div className="col-6">
-                        <ItemDetails itemId={this.state.selectedStarshipId}
-                            getData={this.apiService.getStarhip}
-                            imageSrc={this.apiService.getImageUrl('starships', this.state.selectedStarshipId)}
-                        >
-                            <Record field="model" label="Model"/>
-                            <Record field="length" label="Length"/>
-                            <Record field="cost" label="Cost"/>
-                        </ItemDetails>
-                    </div>
-                </div>
+                <Row left={starshipList} right={starshipDetails}/>
             </div>
         );
     }

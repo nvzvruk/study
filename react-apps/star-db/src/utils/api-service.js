@@ -40,7 +40,7 @@ class ApiService {
 
     getPerson = this.get.bind(this, 'people');
     getPlanet = this.get.bind(this, 'planets');
-    getStarhip = this.get.bind(this, 'starships');
+    getStarship = this.get.bind(this, 'starships');
 
 
     // helper methods
@@ -53,7 +53,7 @@ class ApiService {
 
     // transform data methods
 
-    __transformPlanet = ({ name, population, rotation_period, diameter, url }) => {
+    __transformPlanet = ({ name, population, rotation_period, diameter, url, climate }) => {
         const id = this.__extractIdFromUrl(url);
         const imageUrl = this.getImageUrl('planets', id);
         return {
@@ -63,7 +63,8 @@ class ApiService {
             rotation: rotation_period,
             diameter,
             imageUrl,
-            url
+            url,
+            climate
         }
     };
 
@@ -82,6 +83,7 @@ class ApiService {
             id: this.__extractIdFromUrl(item.url),
             name: item.name,
             model: item.model,
+            class: item.starship_class
         };
     };
 
