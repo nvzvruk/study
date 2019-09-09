@@ -15,7 +15,7 @@ class PeoplePage extends Component {
 
     render() {
         const personList = <PersonList onClick={this.onPersonSelected}/>;
-        const personDetails = <ErrorBoundary><PersonDetails personId={this.state.selectedPersonId}/></ErrorBoundary>;
+        const personDetails = <ErrorBoundary><PersonDetails itemId={this.state.selectedPersonId}/></ErrorBoundary>;
 
         return(
             <div className="planet-page container">

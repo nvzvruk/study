@@ -34,14 +34,6 @@ class ApiService {
         }
     }
 
-    getAllPeople = this.getAll.bind(this, 'people');
-    getAllPlanets = this.getAll.bind(this, 'planets');
-    getAllStarships = this.getAll.bind(this, 'starships');
-
-    getPerson = this.get.bind(this, 'people');
-    getPlanet = this.get.bind(this, 'planets');
-    getStarship = this.get.bind(this, 'starships');
-
 
     // helper methods
 
@@ -91,6 +83,19 @@ class ApiService {
         // entity = 'characters' || 'starships' || 'planets'
         return `${imageUrl}/${entity}/${id}.jpg`;
     };
+
+
+    getAllPeople = this.getAll.bind(this, 'people');
+    getAllPlanets = this.getAll.bind(this, 'planets');
+    getAllStarships = this.getAll.bind(this, 'starships');
+
+    getPerson = this.get.bind(this, 'people');
+    getPlanet = this.get.bind(this, 'planets');
+    getStarship = this.get.bind(this, 'starships');
+
+    getPersonImage = this.getImageUrl.bind(this, 'characters');
+    getPlanetImage = this.getImageUrl.bind(this, 'planets');
+    getStarshipImage = this.getImageUrl.bind(this, 'starships');
 }
 
 export default ApiService;

@@ -2,12 +2,17 @@ import React from 'react';
 import ItemDetails, { Record } from "../item-details";
 import { withApiService } from '../hoc';
 
-const PlanetDetails = ({ planetId, apiService: { getPlanet, getImageUrl } }) =>
-    <ItemDetails itemId={planetId}
-                 getData={getPlanet}
-                 imageSrc={getImageUrl('planets', planetId)}>
+const PlanetDetails = (props) =>
+    <ItemDetails {...props}>
         <Record field="population" label="Population"/>
         <Record field="rotation" label="Rotation"/>
     </ItemDetails>;
 
-export default withApiService(PlanetDetails);
+const mapMethodsToProps = ({ getPlanet, getPlanetImage }) => {
+    return {
+        getData: getPlanet,
+        getImage: getPlanetImage
+    }
+};
+
+export default withApiService(PlanetDetails, mapMethodsToProps);

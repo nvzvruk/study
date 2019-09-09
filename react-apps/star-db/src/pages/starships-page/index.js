@@ -14,7 +14,7 @@ class StarshipsPage extends Component {
 
     render() {
         const starshipList = <StarshipsList onClick={this.onStarshipSelected}/>;
-        const starshipDetails = <ErrorBoundary><StarshipDetails starshipId={this.state.selectedStarshipId}/></ErrorBoundary>;
+        const starshipDetails = <ErrorBoundary><StarshipDetails itemId={this.state.selectedStarshipId}/></ErrorBoundary>;
 
         return(
             <div className="planet-page container">

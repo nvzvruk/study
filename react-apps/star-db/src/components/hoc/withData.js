@@ -8,7 +8,7 @@ const withData = ( View, getData ) => {
         }
 
         componentDidMount() {
-            getData()
+            this.props.getData()
                 .then(data => {
                     this.setState({ data: data })
                 })
@@ -22,6 +22,6 @@ const withData = ( View, getData ) => {
             return <View {...this.props} data={this.state.data}/>
         }
     }
-}
+};
 
 export default withData;

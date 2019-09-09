@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ApiService from '../../utils/api-service';
 import Spinner from '../spinner';
 import './item-details.css';
 
@@ -13,7 +12,6 @@ export const Record = ({ item, field, label }) => {
 };
 
 export default class ItemDetails extends Component {
-    apiService = new ApiService();
 
     state = {
         item: null,
@@ -23,7 +21,15 @@ export default class ItemDetails extends Component {
     updateItem = (id) => {
         this.setState({ loading: true });
         this.props.getData(id)
-            .then((item) => this.setState({ item, loading: false }));
+            .then((item) => this.setState(
+                {
+                    item: {
+                        ...item,
+                        image: this.props.getImage(id)
+                    },
+                    loading: false
+                }
+            ));
     };
 
     componentDidUpdate(prevProps) {
@@ -33,13 +39,13 @@ export default class ItemDetails extends Component {
     }
 
     render() {
-        const { loading, item } = this.state;
+        const { loading, item, } = this.state;
         const placeholder = !item && <span className="person-details__placeholder">Choose person to display</span>;
         const loader = loading && <Spinner/>;
         const content = !loading && item &&  
             <div className="person-details card">
                 <img className="person-image"
-                    src={this.props.imageSrc}
+                    src={item.image}
                     alt="selected person"/>
                  <div className="card-body">
                     <h4>{item.name}</h4>
