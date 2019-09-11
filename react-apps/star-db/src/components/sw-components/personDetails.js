@@ -17,4 +17,4 @@ const mapMethodsToProps = ({ getPerson, getPersonImage }) => {
 };
 
 
-export default withApiService(PersonDetails, mapMethodsToProps);
+export default withApiService(mapMethodsToProps)(PersonDetails);

@@ -1,7 +1,7 @@
 import React from 'react';
 import Spinner from '../spinner/index';
 
-const withData = ( View, getData ) => {
+const withData = (View) => {
     return class extends React.Component {
         state = {
             data: null

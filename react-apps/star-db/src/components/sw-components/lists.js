@@ -1,8 +1,6 @@
-import React from 'react';
 import ItemList from '../item-list';
-import { withData, withApiService } from '../hoc/index';
-
-const withChildRenderFunction = (Comoponent, renderFunction) => (props) => <Comoponent {...props}>{renderFunction}</Comoponent>;
+import { withData, withApiService, withChildRenderFunction } from '../hoc';
+import { compose } from '../../helpers';
 
 const personRenderFunction = ({ name, gender, birthYear }) => `${name } (${gender}, ${birthYear})`;
 const planetRenderFunction = ({ name, climate }) => `${name }, climate: ${climate}`;
@@ -12,9 +10,23 @@ const mapPersonMethodsToProps = ({ getAllPeople }) => ({getData: getAllPeople});
 const mapPlanetMethodsToProps = ({ getAllPlanets }) => ({getData: getAllPlanets});
 const mapStarshipMethodsToProps = ({ getAllStarships }) => ({getData: getAllStarships});
 
-const PersonList = withApiService(withData(withChildRenderFunction(ItemList, personRenderFunction)), mapPersonMethodsToProps);
-const PlanetsList = withApiService(withData(withChildRenderFunction(ItemList, planetRenderFunction)), mapPlanetMethodsToProps);
-const StarshipsList = withApiService(withData(withChildRenderFunction(ItemList, starshipRenderFunction)), mapStarshipMethodsToProps);
+const PersonList = compose(
+    withApiService(mapPersonMethodsToProps),
+    withData,
+    withChildRenderFunction(personRenderFunction)
+)(ItemList);
+
+const PlanetsList = compose(
+    withApiService(mapPlanetMethodsToProps),
+    withData,
+    withChildRenderFunction(planetRenderFunction)
+)(ItemList);
+
+const StarshipsList = compose(
+    withApiService(mapStarshipMethodsToProps),
+    withData,
+    withChildRenderFunction(starshipRenderFunction)
+)(ItemList);
 
 export {
     PersonList,

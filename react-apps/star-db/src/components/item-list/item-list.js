@@ -15,6 +15,6 @@ const ItemList = ({ data, onClick, children: renderLabel }) => {
             {items}
         </ul>
     );
-}
+};
 
 export default ItemList;

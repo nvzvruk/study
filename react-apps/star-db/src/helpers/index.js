@@ -3,3 +3,5 @@ export const randomInteger = (min, max) => {
     rand = Math.round(rand);
     return rand;
 };
+
+export const compose = (...funcs) => (component) => funcs.reduceRight((prevResult, func) => func(prevResult), component);
